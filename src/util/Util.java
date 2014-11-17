@@ -34,6 +34,19 @@ public class Util {
 		frequenciaTermo += 1;
 		mapTermoFrequencia.put(termo, frequenciaTermo);
 	}
+
+	/**
+	 * Recebe um mapa que contem a presenca de cada terno e um termo.
+	 * Retorna o mapa com a presenca desse termo incrementada 
+	 * @param mapTermoPresenca
+	 * @param termo
+	 */
+	public static void incrementaPresenca(Map<String, Integer> mapTermoPresenca, String termo) {
+		
+		if (!mapTermoPresenca.containsKey(termo)){
+			mapTermoPresenca.put(termo, 1);
+		}
+	}
 	
 	/**
 	 * Recebe o nome do campo e o nome do arquivo de propriedade e retorna o valor referente a esse campo
@@ -170,4 +183,16 @@ public class Util {
         return passa;  
     	
     }
+
+	public static List<String> MapToListString(Map<String, Integer> mapStringInt) {
+		
+		List<String> linhas = new ArrayList<String>();
+		
+		for	(Entry<String, Integer> entry:	mapStringInt.entrySet()){
+			linhas.add(entry.getValue()+";"+entry.getKey());
+		}
+		return linhas;
+	}
+
+	
 }

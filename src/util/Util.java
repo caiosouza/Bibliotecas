@@ -185,12 +185,15 @@ public class Util {
     	
     }
 
-	public static List<String> MapToListString(Map<String, Integer> mapStringInt) {
+	public static List<String> MapToListString(Map<String, Integer> mapStringInt, Integer minGlobalFreq) {
 		
 		List<String> linhas = new ArrayList<String>();
 		
 		for	(Entry<String, Integer> entry:	mapStringInt.entrySet()){
-			linhas.add(entry.getValue()+";"+entry.getKey());
+			// Imprime também o tamanho de cada NGrama
+			if (entry.getValue() >= minGlobalFreq){
+				linhas.add(entry.getKey().split(" ").length + ";" + entry.getValue() + ";" + entry.getKey());
+			}
 		}
 		return linhas;
 	}

@@ -121,7 +121,8 @@ public class Util {
 		List<String> removidos = new ArrayList<String>();
 		for (Entry<String, Integer>  termoFrequencia : termosFrequencias.entrySet()) {
 			if(termoFrequencia.getValue() < freqMin){
-				removidos.add(termoFrequencia.getKey());
+				if(!(termoFrequencia.getKey().startsWith("INICIO") || termoFrequencia.getKey().endsWith("FIM")))
+					removidos.add(termoFrequencia.getKey());
 				//termosFrequencias.remove(termoFrequencia);
 			}
 		}

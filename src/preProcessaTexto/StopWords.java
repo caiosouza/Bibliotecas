@@ -3,36 +3,11 @@ package preProcessaTexto;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 
 import util.Arquivo;
 
 public class StopWords {
-	
-	//private static final String stopWordFile = "StopList.txt";
-	
-	public static void main(String[] args){
-		
-		StopWords stopWords = new StopWords();
-		stopWords.exec(args);
-	}
-	
-	public void exec(String[] args){
-		
-		String line;
-		Scanner s = new Scanner(System.in);
-		System.out.println("Entre com o nome do arquivo de stopList:");
-		String stopListNameFile = s.next();
-		System.out.println("Insira uma palavra por linha:");
-		
-		while(s.hasNext())
-		{
-			line = s.nextLine();
-			System.out.println("Nova frase: "+removeStopWords(line, stopListNameFile, null));
-		}
-		
-	}
 	
 	public String removeStopWords(String inPutText, String stopListNameFile, Set<String> stopList) {
 		

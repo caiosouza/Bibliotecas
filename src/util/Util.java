@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -196,6 +198,44 @@ public class Util {
 			}
 		}
 		return linhas;
+	}
+
+	public static void geraLog(Date inicio, List<String> linhasParametrosEntrada,
+			String arquivoGerado, Date fim, String nomeArquivoLog) {
+		List<String> arquivosGerados = new ArrayList<String>();
+		arquivosGerados.add(arquivoGerado);
+		geraLog(inicio, linhasParametrosEntrada, arquivosGerados, fim, nomeArquivoLog);
+		
+	}
+	public static void geraLog(Date inicio, List<String> linhasParametrosEntrada,
+			List<String> arquivosGerados, Date fim, String nomeArquivoLog) {
+
+		String pulaLinha = ""+ '\n';
+		List<String> log = new ArrayList<String>();
+		log.add(inicio.toString() + " INICIO");
+		log.add(pulaLinha);
+		log.add("Parametros de Entrada:");
+		log.addAll(linhasParametrosEntrada);
+		log.add(pulaLinha);
+		log.add("Arquivos gerados:");
+		log.addAll(arquivosGerados);
+		log.add(pulaLinha);
+		log.add(fim.toString() + " Fim");
+		
+		Arquivo.insereLinhas("log" + File.separatorChar + nomeArquivoLog, log);
+	}
+
+	public static List<String> intMatrizToListString(int[][] intMatrix) {
+		String temp;
+		List<String> textoMatrizTransicaoSparsa = new ArrayList<String>();
+		for (int i = 0; i < intMatrix.length; i++) {
+			int[] linhaMatriz = intMatrix[i];
+			temp = Arrays.toString(linhaMatriz);
+			temp = temp.replace("[","");
+			temp = temp.replace("]","");
+			textoMatrizTransicaoSparsa.add(temp);
+		}
+		return textoMatrizTransicaoSparsa;
 	}
 
 	

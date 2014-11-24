@@ -17,18 +17,18 @@ import java.util.List;
 
 public class Arquivo {
 	
-	private static String codificacao = "UTF-8";
-	
+	private static String codificacaoDefault = "UTF-8";
+	private static String separadorDefault = " ";
 	
 	public static String pegaLinhas(String nomeArq){
-		
+	//TODO colocar poliformismo para chamar passando string separador entre as linhas e o booleano para dizer se mantem as linhas que vierem vazias	
 		String linhaSaida = "";
 		
 		List<String> linhas;
 		try {
 			linhas = abreArquivo(nomeArq);
 			for (String linha : linhas) {
-				linhaSaida = linhaSaida + " " + linha;
+				linhaSaida = linhaSaida + separadorDefault + linha;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -44,23 +44,35 @@ public class Arquivo {
 	}
 
 	public static List<String> abreArquivo(File arquivo){
-		
 		return abreArquivo(arquivo.getAbsolutePath());
-		
+	}
+	
+	public static List<String> abreArquivo(File arquivo, boolean mantemVazias){
+		return abreArquivo(arquivo.getAbsolutePath(), mantemVazias);
 	}
 
 	public static List<String> abreArquivo(String nomeArq) {
+		return abreArquivo(nomeArq, true);	
+	}
+	
+	public static List<String> abreArquivo(String nomeArq, boolean mantemVazias) {
+		return abreArquivo(nomeArq, mantemVazias, codificacaoDefault);
+	}
+	
+	public static List<String> abreArquivo(String nomeArq, boolean mantemVazias, String codificacao) {
 		
 		List<String> linhas = new ArrayList<String>();
 		
 		try{
 			BufferedReader txtBuffer = new BufferedReader(new InputStreamReader(
-		    	    new FileInputStream(nomeArq), codificacao));
+		    	    new FileInputStream(nomeArq), codificacaoDefault));
 		    
 		    String linha = txtBuffer.readLine();
 		     
 		    while (linha != null) {
-		    	linhas.add(linha);
+		    	if (mantemVazias || linha.trim().length() > 0){
+		    		linhas.add(linha);
+		    	}
 		        linha = txtBuffer.readLine();
 		    }
 		     
@@ -79,8 +91,12 @@ public class Arquivo {
 		linhas.add(linha);
 		salvaArquivo(linhas,nomeArqSaida);
 	}
-		
+	
 	public static void salvaArquivo(List<String> linhas, String nomeArqSaida) {
+		salvaArquivo(linhas, nomeArqSaida, codificacaoDefault);
+	}
+	
+	public static void salvaArquivo(List<String> linhas, String nomeArqSaida, String codificacao) {
 
 		FileOutputStream arqSaida;
 		PrintStream p;  
@@ -142,7 +158,6 @@ public class Arquivo {
     }
     
     private static void criaDiretorioArquivo(String nomeArqSaida) {
-		
 		criaDiretorioArquivo(new File(nomeArqSaida));			
 	}	
 	
@@ -158,26 +173,40 @@ public class Arquivo {
 	}
 	
 	public static String contatenaLinhas(List<String> linhas) {
+		return contatenaLinhas(linhas, separadorDefault);
+	}
+	
+	public static String contatenaLinhas(List<String> linhas, String separador) {
 		
 		String linhaFinal = "";
 		for (String linha : linhas) {
-			linhaFinal = linhaFinal +" "+ linha;
+			linhaFinal = linhaFinal + separador + linha;
 		}
 		return linhaFinal;
 	}
 
-	public void insereLinhas(String nomeArquivo, String novaLinha)  {
+	public static void insereLinhas(String nomeArquivo, List<String> novasLinhas)  {
 		
 		try {
 			criaDiretorioArquivo(nomeArquivo);
 			FileWriter arquivo = new FileWriter(nomeArquivo, true);
-			novaLinha += '\n';
-			arquivo.write(novaLinha);  
-		    arquivo.close();  
+			arquivo.write("");
+			for (String novaLinha : novasLinhas) {
+				novaLinha += '\n';
+				arquivo.write(novaLinha);  	
+			}
+			arquivo.close();  
 		} catch (IOException e) {
-			System.out.println("Erro ao salvar arquivo de Log: " + nomeArquivo + ".");
+			System.out.println("Erro ao inserir linhas no arquivo: " + nomeArquivo + ".");
 			System.out.println(e);
 		}  
+	}
+
+
+	public static void insereLinhas(String nomeArquivo, String novaLinha) {
+		List<String> novasLinhas = new ArrayList<String>();
+		novasLinhas.add(novaLinha);
+		insereLinhas(nomeArquivo, novasLinhas);
 	}
 	
 }

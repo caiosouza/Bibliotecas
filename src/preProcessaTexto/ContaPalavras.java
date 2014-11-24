@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Set;
 //import java.util.Set;
 import java.util.regex.Matcher;
@@ -47,15 +46,7 @@ public class ContaPalavras {
         
         //testa se nome do arq. texto foi passado na chamada do programa
         
-        if (args.length != 1) {
-        	Scanner s = new Scanner(System.in);
-        	System.out.println("Entre com o nome do arquivo.");
-        	nomeArq = s.next();
-        	
-        }
-        else {
-        	nomeArq = args[0];
-        }
+       	nomeArq = args[0];
         nomeArq = "data/100001000044.txt";
      
         //abre o arquivo

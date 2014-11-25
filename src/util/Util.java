@@ -170,8 +170,8 @@ public class Util {
         passa = passa.replaceAll("[âãàáä]","a");  
         passa = passa.replaceAll("[ÊÈÉË]","E");  
         passa = passa.replaceAll("[êèéë]","e");  
-        passa = passa.replaceAll("ÎÍÌÏ","I");  
-        passa = passa.replaceAll("îíìï","i");  
+        passa = passa.replaceAll("[ÎÍÌÏ]","I");  
+        passa = passa.replaceAll("[îíìï]","i");  
         passa = passa.replaceAll("[ÔÕÒÓÖ]","O");  
         passa = passa.replaceAll("[ôõòóö]","o");  
         passa = passa.replaceAll("[ÛÙÚÜ]","U");  

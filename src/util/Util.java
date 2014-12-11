@@ -182,7 +182,7 @@ public class Util {
         passa = passa.replaceAll("Ý","Y");  
         passa = passa.replaceAll("ñ","n");  
         passa = passa.replaceAll("Ñ","N");  
-        passa = passa.replaceAll("['<>|/]","");  
+        //passa = passa.replaceAll("['<>|/]-","");  
         return passa;  
     	
     }
